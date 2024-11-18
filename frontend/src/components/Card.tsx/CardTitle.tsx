@@ -7,7 +7,7 @@ const CardTitle = () => {
         </h1>
       </div>
       <div className=" text-sm text-blue-600">
-        <p>@SomeUserName</p>
+        <button>@SomeUserName</button>
       </div>
     </div>
   );

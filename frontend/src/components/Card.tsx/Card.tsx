@@ -5,7 +5,7 @@ import CardTitle from "./CardTitle";
 
 const Thing = () => {
   return (
-    <div className=" rounded w-[600px]">
+    <div className="rounded w-[600px] ">
       <div className="flex">
         <CardTitle />
         <CardMisc />

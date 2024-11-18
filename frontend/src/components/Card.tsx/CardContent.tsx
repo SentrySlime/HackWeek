@@ -1,6 +1,8 @@
 const CardContent = ({src}) => {
     return(
-        <img src={src} className="rounded" alt="" />
+        <div>
+            <img src={src} className="rounded" alt="" />
+        </div>
     )
 }
 
