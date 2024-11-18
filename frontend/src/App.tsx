@@ -1,7 +1,8 @@
 import Footer from "./components/Footer";
-import Card from "./components/Card.tsx/Card";
+import Card from "./components/Card/Card";
 import Sticky from "./components/Sticky";
 import SideBar from "./components/SideBar/SideBar";
+import PostMenu from "./components/Post/PostMenu";
 
 function App() {
   return (
@@ -9,15 +10,16 @@ function App() {
       <div>
         <Sticky/>
         <div>
+
+          
           <SideBar/>
 
+
           <div className=" items-center justify-center grid gap-4 mt-10 ml-16 flex-1 ">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+          
+            <PostMenu/>
+
+            
           </div>
         </div>
         <Footer />

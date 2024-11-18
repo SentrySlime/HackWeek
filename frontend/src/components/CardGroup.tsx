@@ -1,4 +1,4 @@
-import Card from "./Card.tsx/Card";
+import Card from "./Card/Card";
 
 const ThingGroup = () => {
   return (
