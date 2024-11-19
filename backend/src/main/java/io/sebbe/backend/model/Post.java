@@ -13,16 +13,24 @@ public class Post {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private String title;
+
   private String url;
 
   public Post() {
   }
 
-  public Post(String url, Long id) {
+  public Post(String url) {
     this.url = url;
-    this.id = id;
   }
 
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
   public Long getId() {
     return id;

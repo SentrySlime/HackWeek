@@ -1,16 +1,12 @@
 package io.sebbe.backend.controller;
 
-import io.sebbe.backend.model.Post;
-import io.sebbe.backend.service.ImageUploadService;
 import io.sebbe.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
 
 @RestController

@@ -12,6 +12,7 @@ function ImageUploader() {
     if (!file) return;
     const formData = new FormData();
     formData.append("image", file);
+    formData.append("title", "This is a title")
 
     try {
       const response = await axios.post(

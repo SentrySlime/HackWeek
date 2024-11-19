@@ -41,8 +41,10 @@ public class PostService {
   }
 
   private void storeInDB (Map uploadResult) {
+
     Post post = new Post();
     post.setUrl((String) uploadResult.get("secure_url"));
+    post.set
 
     postRepo.save(post);
   }
