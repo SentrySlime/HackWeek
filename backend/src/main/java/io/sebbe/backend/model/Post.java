@@ -17,12 +17,15 @@ public class Post {
 
   private String url;
 
+  private String img_Id;
+
   public Post() {
   }
 
-  public Post(String title, String url) {
+  public Post(String title, String url, String img_Id) {
     this.title = title;
     this.url = url;
+    this.img_Id = img_Id;
   }
 
   public String getTitle() {
@@ -47,5 +50,13 @@ public class Post {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public String getImg_Id() {
+    return img_Id;
+  }
+
+  public void setImg_Id(String img_Id) {
+    this.img_Id = img_Id;
   }
 }

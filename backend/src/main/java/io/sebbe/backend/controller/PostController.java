@@ -50,7 +50,7 @@ public class PostController {
   }
 
   @DeleteMapping("/{id}")
-  public void deletePostById(@PathVariable Integer id){
+  public void deletePostById(@PathVariable Integer id) throws IOException {
     postService.deletePostById(id);
   }
 

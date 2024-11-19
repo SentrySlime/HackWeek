@@ -23,7 +23,7 @@ const CardGroup = () => {
       <button  ></button>
 
       {posts.map((post) => (
-        <Card key={post.id} title={post.title} url={post.url} />
+        <Card key={post.id} id={post.id} title={post.title} url={post.url} />
       ))}
     </div>
   );

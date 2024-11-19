@@ -4,12 +4,12 @@ import CardFooter from "./CardFooter";
 import CardMisc from "./CardMisc";
 import CardTitle from "./CardTitle";
 
-const Card = ({title, url }) => {
+const Card = ({id, title, url }) => {
   return (
     <div className="rounded w-[600px]">
       <div className="flex">
         <CardTitle title={title} />
-        <CardMisc />
+        <CardMisc id={id}/>
       </div>
       <CardContent src={url} />
       <CardFooter />

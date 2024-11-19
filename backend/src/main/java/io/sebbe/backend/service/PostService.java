@@ -28,8 +28,10 @@ public class PostService {
   public Map uploadImage(CloudPost cloudPost) throws IOException {
     File file = convertToFile(cloudPost.getFile());
     Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
+
     file.delete();
-    mapToPost((String) uploadResult.get("secure_url"), cloudPost);
+
+    mapToPost(uploadResult, cloudPost);
     return uploadResult;
   }
 
@@ -40,7 +42,11 @@ public class PostService {
   }
 
   //Delete
-  public void deletePostById(int id){
+  public void deletePostById(int id) throws IOException {
+
+    Post post = postRepo.findById((long) id).orElse(null);
+
+    cloudinary.uploader().destroy(post.getImg_Id(), ObjectUtils.emptyMap());
     postRepo.deleteById((long) id);
   }
 
@@ -52,8 +58,16 @@ public class PostService {
     return file;
   }
 
-  private void mapToPost (String url, CloudPost cloudPost) {
-    Post post = new Post(cloudPost.getTitle(), url);
+  private void mapToPost (Map uploadResult, CloudPost cloudPost) {
+
+
+    String publicId = (String) uploadResult.get("public_id");
+
+
+    Post post = new Post(cloudPost.getTitle(),
+            (String) uploadResult.get("secure_url"),
+            (String) uploadResult.get("public_id"));
+
     storeInDB(post);
   }
 
