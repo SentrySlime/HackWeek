@@ -18,13 +18,14 @@ import java.util.Map;
 public class PostController {
 
 
-
+  private final PostService postService;
   private PostService service;
   private PostMapper postMapper;
 
-  public PostController(PostService service, PostMapper postMapper ) {
+  public PostController(PostService service, PostMapper postMapper, PostService postService) {
     this.service = service;
     this.postMapper = postMapper;
+    this.postService = postService;
   }
 
   @PostMapping("/upload")
@@ -48,20 +49,9 @@ public class PostController {
     return ResponseEntity.ok(list);
   }
 
-//  @GetMapping
-//  public ResponseEntity<String> getPost(){
-//    return ResponseEntity.ok(postService.getPost());
-//  }
-
-//  @PostMapping("/add")
-//  public ResponseEntity<String> takePost(@RequestParam("image") MultipartFile file) {
-//    try {
-//      String fileUrl = postService.uploadFile(file);
-//      return ResponseEntity.ok(fileUrl);
-//    } catch (Exception e) {
-//      return ResponseEntity.status(500).body("Error uploading file: " + e.getMessage());
-//    }
-//  }
-
+  @DeleteMapping("/{id}")
+  public void deletePostById(@PathVariable Integer id){
+    postService.deletePostById(id);
+  }
 
 }

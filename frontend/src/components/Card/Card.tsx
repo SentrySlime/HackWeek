@@ -4,7 +4,7 @@ import CardFooter from "./CardFooter";
 import CardMisc from "./CardMisc";
 import CardTitle from "./CardTitle";
 
-const CardGroup = ({ title, url }) => {
+const Card = ({title, url }) => {
   return (
     <div className="rounded w-[600px]">
       <div className="flex">
@@ -17,4 +17,4 @@ const CardGroup = ({ title, url }) => {
   );
 };
 
-export default CardGroup;
+export default Card;

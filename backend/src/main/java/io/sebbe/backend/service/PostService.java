@@ -39,6 +39,10 @@ public class PostService {
     return postRepo.findAll();
   }
 
+  //Delete
+  public void deletePostById(int id){
+    postRepo.deleteById((long) id);
+  }
 
   private File convertToFile(MultipartFile multipartFile) throws IOException {
     File file = new File(multipartFile.getOriginalFilename());

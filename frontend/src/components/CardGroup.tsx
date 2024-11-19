@@ -5,12 +5,11 @@ import axios from "axios";
 const CardGroup = () => {
   const [posts, setPosts] = useState([]);
 
-  // Fetch posts from the backend
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api"); // Replace with your API endpoint
-        setPosts(response.data); // Update the state with the fetched posts
+        const response = await axios.get("http://localhost:8080/api"); 
+        setPosts(response.data); 
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -23,7 +22,6 @@ const CardGroup = () => {
     <div>
       <button  ></button>
 
-      {/* Map over the posts array and render a Card for each post */}
       {posts.map((post) => (
         <Card key={post.id} title={post.title} url={post.url} />
       ))}
