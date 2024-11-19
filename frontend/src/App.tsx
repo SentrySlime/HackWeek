@@ -15,7 +15,7 @@ function App() {
           <div className=" items-center justify-center grid gap-4 mt-10 ml-16 flex-1 ">
             <ImageUploader />
             {/* <PostMenu/> */}
-            {/* <CardGroup /> */}
+            <CardGroup /> 
           </div>
         </div>
         <Footer />

@@ -1,6 +1,6 @@
 import Card from "./Card/Card";
 
-const ThingGroup = () => {
+const CardGroup = () => {
   return (
     <div>
       <Card />
@@ -11,4 +11,4 @@ const ThingGroup = () => {
   );
 };
 
-export default ThingGroup;
+export default CardGroup;

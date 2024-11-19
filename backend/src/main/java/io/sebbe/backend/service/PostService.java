@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -23,15 +24,21 @@ public class PostService {
   @Autowired
   private PostRepository postRepo;
 
+  //Post
   public Map uploadImage(CloudPost cloudPost) throws IOException {
     File file = convertToFile(cloudPost.getFile());
     Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
     file.delete();
-
     mapToPost((String) uploadResult.get("secure_url"), cloudPost);
-
     return uploadResult;
   }
+
+
+  //Get
+  public List<Post> getPosts(){
+    return postRepo.findAll();
+  }
+
 
   private File convertToFile(MultipartFile multipartFile) throws IOException {
     File file = new File(multipartFile.getOriginalFilename());

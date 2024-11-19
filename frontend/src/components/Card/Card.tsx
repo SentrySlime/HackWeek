@@ -3,7 +3,7 @@ import CardFooter from "./CardFooter";
 import CardMisc from "./CardMisc";
 import CardTitle from "./CardTitle";
 
-const Thing = () => {
+const CardGroup = () => {
   return (
     <div className="rounded w-[600px] ">
       <div className="flex">
@@ -16,4 +16,4 @@ const Thing = () => {
   );
 };
 
-export default Thing;
+export default CardGroup;

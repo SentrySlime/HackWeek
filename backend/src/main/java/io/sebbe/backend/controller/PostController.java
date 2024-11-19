@@ -1,14 +1,15 @@
 package io.sebbe.backend.controller;
 
+import io.sebbe.backend.dto.PostResponseDTO;
 import io.sebbe.backend.dto.UploadRequestDTO;
 import io.sebbe.backend.model.CloudPost;
 import io.sebbe.backend.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.sebbe.backend.util.PostMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -17,8 +18,14 @@ import java.util.Map;
 public class PostController {
 
 
-  @Autowired
-  private PostService imageUploadService;
+
+  private PostService service;
+  private PostMapper postMapper;
+
+  public PostController(PostService service, PostMapper postMapper ) {
+    this.service = service;
+    this.postMapper = postMapper;
+  }
 
   @PostMapping("/upload")
   public ResponseEntity<Map> uploadImage(@ModelAttribute UploadRequestDTO uploadRequest) {
@@ -26,7 +33,7 @@ public class PostController {
 
       CloudPost cloudPost = new CloudPost(uploadRequest.title(), uploadRequest.image());
 
-      Map uploadResult = imageUploadService.uploadImage(cloudPost);
+      Map uploadResult = service.uploadImage(cloudPost);
 
       System.out.println(uploadResult);
       return ResponseEntity.ok(uploadResult);
@@ -35,18 +42,11 @@ public class PostController {
     }
   }
 
-
-
-
-
-  PostService postService;
-
-  public PostController(PostService postService) {
-    this.postService = postService;
-
+  @GetMapping
+  public ResponseEntity<List <PostResponseDTO>> getAllPosts(){
+    List<PostResponseDTO> list = postMapper.mapToDtoList(service.getPosts());
+    return ResponseEntity.ok(list);
   }
-
-
 
 //  @GetMapping
 //  public ResponseEntity<String> getPost(){
