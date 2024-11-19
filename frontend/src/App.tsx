@@ -3,6 +3,7 @@ import Sticky from "./components/Sticky";
 import SideBar from "./components/SideBar/SideBar";
 import CardGroup from "./components/CardGroup";
 import PostMenu from "./components/Post/PostMenu";
+import ImageUploader from "./components/Post/ImageUploader";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <div>
           <SideBar />
           <div className=" items-center justify-center grid gap-4 mt-10 ml-16 flex-1 ">
-            <PostMenu/>
+            <ImageUploader />
+            {/* <PostMenu/> */}
             {/* <CardGroup /> */}
           </div>
         </div>
