@@ -4,6 +4,7 @@ import axios from "axios";
 function ImageUploader({ onClose }) {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
+  const [imageSrc, setImageSrc] = useState(null);
   const [title, setTitle] = useState("");
   const fileInputRef = useRef(null);
   const modalRef = useRef(null);
@@ -16,6 +17,15 @@ function ImageUploader({ onClose }) {
         ? selectedFile.name.substring(0, 12) + "..."
         : selectedFile.name
     );
+
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImageSrc(reader.result); // Set the base64 string as imageSrc
+      };
+      reader.readAsDataURL(file); // Read file as data URL
+    }
   };
 
   const resetForm = () => {
@@ -116,6 +126,13 @@ function ImageUploader({ onClose }) {
             >
               Select File
             </button>
+            {imageSrc && (
+        <img
+          src={imageSrc}
+          alt="Selected Preview"
+          className="rounded w-8 h-8 bg-slate-50"
+        />
+      )}
             <input
               type="file"
               ref={fileInputRef}
