@@ -58,7 +58,7 @@ const PostMenu = () => {
   };
 
   return (
-    <div>
+    <div> 
       <div>
         <form
           className="flex flex-col gap-8 m-4 items-center"
