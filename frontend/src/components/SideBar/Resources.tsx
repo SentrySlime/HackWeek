@@ -1,14 +1,14 @@
 const Resources = () => {
   return (
-    <div className="fixed top-[500px] ml-10 w-48">
-      Something
-      <div className="flex flex-col border h-40 p-1">
-        <button className="text-left">Contact</button>
-        <button className="text-left">Help</button>
-        <button className="text-left">PressKit</button>
-        <button className="text-left">About</button>
-        <button className="text-left">Blog</button>
-        <button className="text-left">Open positions</button>
+    <div className="mt-4">
+      <p className="font-semibold mb-2">Resources</p>
+      <div className="border p-2">
+        <button className="text-left w-full mb-2">Contact</button>
+        <button className="text-left w-full mb-2">Help</button>
+        <button className="text-left w-full mb-2">PressKit</button>
+        <button className="text-left w-full mb-2">About</button>
+        <button className="text-left w-full mb-2">Blog</button>
+        <button className="text-left w-full">Open Positions</button>
       </div>
     </div>
   );

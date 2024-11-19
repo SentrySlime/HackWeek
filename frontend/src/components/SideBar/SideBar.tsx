@@ -3,11 +3,12 @@ import Resources from "./Resources";
 
 const SideBar = () => {
   return (
-    <div>
+    <div className="fixed top-20 left-0 z-40 w-64">
       <Categories />
-      <Resources/>
+      <Resources />
     </div>
   );
 };
 
 export default SideBar;
+

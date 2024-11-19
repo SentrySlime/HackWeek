@@ -9,24 +9,32 @@ function App() {
   const [isImageUploaderOpen, setIsImageUploaderOpen] = useState(false);
 
   return (
-    <>
-      <div>
-        <Sticky toggleImageUploader={() => setIsImageUploaderOpen(true)} />
-        <div>
-          <SideBar />
-          <div className="items-center justify-center grid gap-4 mt-10 ml-16 flex-1">
-            <CardGroup />
-          </div>
+    <div className="relative">
+      {/* Sticky Header */}
+      <Sticky toggleImageUploader={() => setIsImageUploaderOpen(true)} />
+
+      {/* Sidebar */}
+      <SideBar />
+
+      {/* Main Content with Blur */}
+      <div
+        className={`transition-all duration-300 ml-[425px] ${ // Margin to accommodate sidebar
+          isImageUploaderOpen ? "blur-sm" : ""
+        }`}
+      >
+        <div className="mt-10">
+          <CardGroup />
         </div>
         <Footer />
-
-        {/* Conditionally Render ImageUploader */}
-        {isImageUploaderOpen && (
-          <ImageUploader onClose={() => setIsImageUploaderOpen(false)} />
-        )}
       </div>
-    </>
+
+      {/* ImageUploader Modal */}
+      {isImageUploaderOpen && (
+        <ImageUploader onClose={() => setIsImageUploaderOpen(false)} />
+      )}
+    </div>
   );
 }
 
 export default App;
+

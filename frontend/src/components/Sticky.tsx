@@ -1,6 +1,6 @@
 const Sticky = ({ toggleImageUploader }) => {
   return (
-    <div className="sticky top-0 w-screen bg-slate-50">
+    <div className="sticky top-0 w-screen bg-slate-50 z-50"> {/* High z-index */}
       <div className="flex justify-between">
         <div className="flex w-72">
           <img
@@ -19,7 +19,6 @@ const Sticky = ({ toggleImageUploader }) => {
         </div>
 
         <div className="flex justify-between w-72">
-          {/* Toggle ImageUploader */}
           <button
             id="postButton"
             onClick={toggleImageUploader}

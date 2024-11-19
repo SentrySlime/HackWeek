@@ -2,25 +2,23 @@ import CheckBox from "../CheckBox";
 
 const Categories = () => {
   return (
-    <div className="fixed top-40 ml-10 w-48">
-      <div className="flex justify-between justify-items-center">
-        <p className="align-text-bottom">Categories</p>
-        <div className="flex flex-col">
-          <button className="border rounded">All</button>
-          <button className="border rounded">None</button>
+    <div className="w-full mb-4">
+      <div className="flex justify-between items-center">
+        <p className="font-semibold">Categories</p>
+        <div className="flex space-x-2">
+          <button className="border rounded px-2 py-1">All</button>
+          <button className="border rounded px-2 py-1">None</button>
         </div>
       </div>
 
-      <div className="border h-64  p-1">
-        <p>Recent</p>
-        <div>
-          <CheckBox fieldName="Science" />
-          <CheckBox fieldName="Beauty" />
-          <CheckBox fieldName="Technology" />
-        </div>
+      <div className="border p-2 mt-4">
+        <p className="font-semibold mb-2">Recent</p>
+        <CheckBox fieldName="Science" />
+        <CheckBox fieldName="Beauty" />
+        <CheckBox fieldName="Technology" />
 
-        <div className=" mt-3 border-t border-gray-300">
-          <CheckBox fieldName="cinema" />
+        <div className="mt-4 border-t pt-2">
+          <CheckBox fieldName="Cinema" />
           <CheckBox fieldName="News" />
           <CheckBox fieldName="Economy" />
           <CheckBox fieldName="Memes" />

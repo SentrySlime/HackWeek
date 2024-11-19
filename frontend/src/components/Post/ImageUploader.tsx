@@ -6,7 +6,7 @@ function ImageUploader({ onClose }) {
   const [fileName, setFileName] = useState("");
   const [title, setTitle] = useState("");
   const fileInputRef = useRef(null);
-  const modalRef = useRef(null); // Ref for the modal content
+  const modalRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -15,7 +15,7 @@ function ImageUploader({ onClose }) {
       selectedFile?.name.length > 15
         ? selectedFile.name.substring(0, 12) + "..."
         : selectedFile.name
-    ); // Truncate if longer than 15 characters
+    );
   };
 
   const resetForm = () => {
@@ -23,14 +23,12 @@ function ImageUploader({ onClose }) {
     setFile(null);
     setFileName("");
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // Clear the file input visually
+      fileInputRef.current.value = ""; // Clear file input visually
     }
   };
 
   const handleUpload = async (event) => {
     event.preventDefault();
-
-    resetForm();
 
     if (!file || !title) {
       alert("All fields are required!");
@@ -45,19 +43,17 @@ function ImageUploader({ onClose }) {
       const response = await axios.post(
         "http://localhost:8080/api/upload",
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
       console.log("Image uploaded successfully:", response.data);
     } catch (error) {
       console.error("Upload failed:", error);
+    } finally {
+      resetForm();
+      onClose();
     }
   };
 
-  // Handle `Esc` key to close the modal
   useEffect(() => {
     const handleEsc = (event) => {
       if (event.key === "Escape") {
@@ -66,39 +62,38 @@ function ImageUploader({ onClose }) {
       }
     };
 
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        resetForm();
+        onClose();
+      }
+    };
+
     window.addEventListener("keydown", handleEsc);
+    document.addEventListener("mousedown", handleOutsideClick);
+
     return () => {
-      window.removeEventListener("keydown", handleEsc); // Cleanup on unmount
+      window.removeEventListener("keydown", handleEsc);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [onClose]);
 
-  // Handle outside click to close the modal
-  const handleOutsideClick = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      resetForm();
-      onClose();
-    }
-  };
-
   return (
-    <div
-      className="fixed top-0 left-0 w-screen h-screen z-50 flex items-center justify-center"
-      onClick={handleOutsideClick} // Detect clicks outside modal content
-    >
-      {/* Background Blur */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-md"></div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      {/* Modal Content */}
+      {/* Modal */}
       <div
-        ref={modalRef} // Attach the modal content ref
-        className="relative bg-white p-5 border rounded shadow-lg z-10"
+        ref={modalRef}
+        className="relative bg-white p-6 rounded-lg shadow-lg z-10"
       >
         <button
           onClick={() => {
             resetForm();
             onClose();
           }}
-          className="absolute top-2 right-2 text-black font-bold"
+          className="absolute top-2 right-2 text-gray-600 font-bold"
         >
           ✖
         </button>
@@ -108,38 +103,32 @@ function ImageUploader({ onClose }) {
             <input
               type="text"
               value={title}
-              onChange={(event) => setTitle(event.target.value)}
-              className="border border-black rounded w-full mb-4"
+              onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter title"
+              className="w-full p-2 mb-4 border rounded"
             />
           </div>
-
-          <div className="mt-4 flex items-center space-x-4">
-            {/* Custom Select File Button */}
+          <div className="flex items-center space-x-4">
             <button
               type="button"
-              onClick={() => fileInputRef.current?.click()} // Trigger file input click
-              className="border border-black px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+              onClick={() => fileInputRef.current?.click()}
+              className="px-4 py-2 bg-gray-200 border rounded"
             >
               Select File
             </button>
-
-            {/* Hidden File Input */}
             <input
               type="file"
-              onChange={handleFileChange}
               ref={fileInputRef}
-              style={{ display: "none" }} // Hide the default file input
+              style={{ display: "none" }}
+              onChange={handleFileChange}
             />
-
-            {/* Display "Selected file" and conditionally render the file name */}
-            <div className="text-gray-600">
-              Selected file: <span>{fileName || "None"}</span>
-            </div>
+            <span>{fileName || "No file selected"}</span>
           </div>
-
-          <button type="submit" className="border border-black mt-4 px-4 py-2">
-            Post
+          <button
+            type="submit"
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Upload
           </button>
         </form>
       </div>
