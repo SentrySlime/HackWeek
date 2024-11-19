@@ -1,5 +1,7 @@
 package io.sebbe.backend.controller;
 
+import io.sebbe.backend.dto.UploadRequestDTO;
+import io.sebbe.backend.model.CloudPost;
 import io.sebbe.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PostController {
 
 
@@ -18,9 +21,13 @@ public class PostController {
   private PostService imageUploadService;
 
   @PostMapping("/upload")
-  public ResponseEntity<Map> uploadImage(@RequestParam("image") MultipartFile file) {
+  public ResponseEntity<Map> uploadImage(@ModelAttribute UploadRequestDTO uploadRequest) {
     try {
-      Map uploadResult = imageUploadService.uploadImage(file);
+
+      CloudPost cloudPost = new CloudPost(uploadRequest.title(), uploadRequest.image());
+
+      Map uploadResult = imageUploadService.uploadImage(cloudPost);
+
       System.out.println(uploadResult);
       return ResponseEntity.ok(uploadResult);
     } catch (IOException e) {

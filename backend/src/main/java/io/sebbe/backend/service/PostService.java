@@ -2,6 +2,7 @@ package io.sebbe.backend.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import io.sebbe.backend.model.CloudPost;
 import io.sebbe.backend.model.Post;
 import io.sebbe.backend.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,12 @@ public class PostService {
   @Autowired
   private PostRepository postRepo;
 
-  public Map uploadImage(MultipartFile multipartFile) throws IOException {
-    File file = convertToFile(multipartFile);
+  public Map uploadImage(CloudPost cloudPost) throws IOException {
+    File file = convertToFile(cloudPost.getFile());
     Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
     file.delete();
 
-    storeInDB(uploadResult);
+    mapToPost((String) uploadResult.get("secure_url"), cloudPost);
 
     return uploadResult;
   }
@@ -40,12 +41,12 @@ public class PostService {
     return file;
   }
 
-  private void storeInDB (Map uploadResult) {
+  private void mapToPost (String url, CloudPost cloudPost) {
+    Post post = new Post(cloudPost.getTitle(), url);
+    storeInDB(post);
+  }
 
-    Post post = new Post();
-    post.setUrl((String) uploadResult.get("secure_url"));
-    post.set
-
+  private void storeInDB (Post post) {
     postRepo.save(post);
   }
 }

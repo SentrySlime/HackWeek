@@ -20,7 +20,8 @@ public class Post {
   public Post() {
   }
 
-  public Post(String url) {
+  public Post(String title, String url) {
+    this.title = title;
     this.url = url;
   }
 
