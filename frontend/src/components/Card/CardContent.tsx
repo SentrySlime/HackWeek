@@ -1,9 +1,5 @@
 const CardContent = ({ src }) => {
-  return (
-    <div>
-      <img src={src} className="rounded" alt="" />
-    </div>
-  );
-};
-
-export default CardContent;
+    return <img src={src} alt="Post" className="rounded w-full h-auto bg-slate-50"/>;
+  };
+  
+  export default CardContent;

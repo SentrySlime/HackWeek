@@ -63,12 +63,6 @@ function ImageUploader() {
         </button>
       </form>
 
-      {/* Alternative upload button (optional) */}
-      {/* 
-      <button onClick={handleUpload} className="border border-black ml-5">
-        Upload
-      </button> 
-      */}
     </div>
   );
 }

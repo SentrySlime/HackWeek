@@ -29,7 +29,6 @@ const PostMenu = () => {
     }
   };
 
-
   const handleChange = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -43,19 +42,21 @@ const PostMenu = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:8080/api/add", payload);
+      const response = await axios.post(
+        "http://localhost:8080/api/add",
+        payload
+      );
       console.log("Success:", response.data);
-      alert("Dog added successfully!");
+      alert("Posted successfully!");
     } catch (error) {
       console.error("Error:", error);
-      alert("Error adding dog.");
+      alert("Error posting.");
     }
 
     setImg(null);
     fileInputRef.current!.value = "";
   };
 
-  
   return (
     <div>
       <div>
@@ -72,27 +73,11 @@ const PostMenu = () => {
             onChange={handleFileChange}
             required
           />
-           <button type="submit" className="btn btn-primary w-36">
-          Send
-        </button>
+          <button type="submit" className="btn btn-primary w-36">
+            Send
+          </button>
         </form>
       </div>
-
-      {/* 
-      <h1 className="text-2xl mt-96">Create new Post</h1>
-      <div className="w-96">
-        <input
-          type="text"
-          className="border border-black rounded w-full"
-          placeholder="Input title"
-        />
-      </div>
-      <div>
-        <DropDown />
-      </div>
-      <div className="mt-10">
-      <textarea name="something" id="" placeholder="Insert post text here" className="border border-black w-96 h-96 resize-none"></textarea>
-      </div> */}
     </div>
   );
 };
