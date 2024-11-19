@@ -13,8 +13,30 @@ public class Post {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String titel;
+  private String url;
+
+  public Post() {
+  }
+
+  public Post(String url, Long id) {
+    this.url = url;
+    this.id = id;
+  }
 
 
+  public Long getId() {
+    return id;
+  }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
 }

@@ -3,24 +3,47 @@ package io.sebbe.backend.controller;
 import io.sebbe.backend.model.Post;
 import io.sebbe.backend.service.ImageUploadService;
 import io.sebbe.backend.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 public class PostController {
 
-  private final TaskExecutionProperties taskExecutionProperties;
-  ImageUploadService postService;
 
-  public PostController(PostService postService, TaskExecutionProperties taskExecutionProperties) {
-    //this.postService = postService;
-    this.taskExecutionProperties = taskExecutionProperties;
+  @Autowired
+  private PostService imageUploadService;
+
+  @PostMapping("/upload")
+  public ResponseEntity<Map> uploadImage(@RequestParam("image") MultipartFile file) {
+    try {
+      Map uploadResult = imageUploadService.uploadImage(file);
+      System.out.println(uploadResult);
+      return ResponseEntity.ok(uploadResult);
+    } catch (IOException e) {
+      return ResponseEntity.status(500).body(null);
+    }
   }
+
+
+
+
+
+  PostService postService;
+
+  public PostController(PostService postService) {
+    this.postService = postService;
+
+  }
+
+
 
 //  @GetMapping
 //  public ResponseEntity<String> getPost(){

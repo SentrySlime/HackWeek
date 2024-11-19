@@ -14,21 +14,29 @@ function ImageUploader() {
     formData.append("image", file);
 
     try {
-      const response = await axios.post("http://localhost:8080/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:8080/api/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log("Image uploaded successfully:", response.data);
     } catch (error) {
       console.error("Upload failed:", error);
     }
+
   };
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload} className="border border-black ml-5">Upload</button>
+      
+      <input  type="file" onChange={handleFileChange} />
+      <button onClick={handleUpload} className="border border-black ml-5">
+        Upload
+      </button>
     </div>
   );
 }

@@ -20,8 +20,8 @@ public class ImageUploadController {
   @PostMapping("/upload")
   public ResponseEntity<Map> uploadImage(@RequestParam("image") MultipartFile file) {
     try {
-      System.out.println(file);
       Map uploadResult = imageUploadService.uploadImage(file);
+      System.out.println(uploadResult);
       return ResponseEntity.ok(uploadResult);
     } catch (IOException e) {
       return ResponseEntity.status(500).body(null);
