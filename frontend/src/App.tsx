@@ -6,25 +6,24 @@ import CardGroup from "./components/CardGroup";
 import ImageUploader from "./components/Post/ImageUploader";
 
 function App() {
-  const [isImageUploaderEnabled, setIsImageUploaderEnabled] = useState(false);
-
-  const toggleImageUploader = () => {
-    setIsImageUploaderEnabled((prev) => !prev);
-  };
+  const [isImageUploaderOpen, setIsImageUploaderOpen] = useState(false);
 
   return (
     <>
       <div>
-        {/* Pass the toggle function and state to Sticky */}
-        <Sticky toggleImageUploader={toggleImageUploader} />
+        <Sticky toggleImageUploader={() => setIsImageUploaderOpen(true)} />
         <div>
           <SideBar />
           <div className="items-center justify-center grid gap-4 mt-10 ml-16 flex-1">
-            {isImageUploaderEnabled && <ImageUploader />}
             <CardGroup />
           </div>
         </div>
         <Footer />
+
+        {/* Conditionally Render ImageUploader */}
+        {isImageUploaderOpen && (
+          <ImageUploader onClose={() => setIsImageUploaderOpen(false)} />
+        )}
       </div>
     </>
   );
