@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast"; // Import toast
 
 function ImageUploader({ onClose }) {
   const [file, setFile] = useState(null);
@@ -25,25 +26,34 @@ function ImageUploader({ onClose }) {
       return response.data;
     },
     onMutate: async ({ file, title }) => {
-      await queryClient.cancelQueries({ queryKey: ["posts"] });
+      // Validate inputs
+      if (!file || !title) {
+        toast.error("All fields are required!");
+        throw new Error("Validation failed");
+      }
 
+      // Optimistic UI update
+      await queryClient.cancelQueries({ queryKey: ["posts"] });
       const previousPosts = queryClient.getQueryData(["posts"]);
 
       const newPost = {
-        id: Date.now(), 
+        id: Date.now(),
         title,
-        url: URL.createObjectURL(file), 
+        url: URL.createObjectURL(file),
       };
+
       queryClient.setQueryData(["posts"], (old) => [...(old || []), newPost]);
 
       return { previousPosts };
     },
     onError: (error, variables, context) => {
-      
       queryClient.setQueryData(["posts"], context.previousPosts);
+      toast.error("Upload failed. Rolling back changes.");
+    },
+    onSuccess: () => {
+      toast.success("Image uploaded successfully!");
     },
     onSettled: () => {
-      
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
   });
@@ -78,11 +88,6 @@ function ImageUploader({ onClose }) {
 
   const handleUpload = async (event) => {
     event.preventDefault();
-
-    if (!file || !title) {
-      alert("All fields are required!");
-      return;
-    }
 
     mutation.mutate({ file, title });
 

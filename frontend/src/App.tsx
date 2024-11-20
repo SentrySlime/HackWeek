@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast"; // Import Toaster
 import Footer from "./components/Footer";
 import Sticky from "./components/Sticky";
 import SideBar from "./components/SideBar/SideBar";
@@ -13,11 +14,16 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* Toaster for displaying toast notifications */}
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="relative">
+        {/* Sticky Header */}
         <Sticky toggleImageUploader={() => setIsImageUploaderOpen(true)} />
 
+        {/* Sidebar */}
         <SideBar />
 
+        {/* Main Content with Blur */}
         <div
           className={`transition-all duration-300 ml-[425px] ${
             isImageUploaderOpen ? "blur-sm" : ""
@@ -29,6 +35,7 @@ function App() {
           <Footer />
         </div>
 
+        {/* ImageUploader Modal */}
         {isImageUploaderOpen && (
           <ImageUploader onClose={() => setIsImageUploaderOpen(false)} />
         )}
