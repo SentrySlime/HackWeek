@@ -6,20 +6,16 @@ import CardTitle from "./CardTitle";
 
 const Card = ({ id, title, url, onDelete }) => {
   return (
-    <div className="rounded w-[600px] border border-gray-300 shadow-md p-4 mb-4 bg-white">
-      {/* Card Header */}
-      <div className="flex justify-between items-center">
+    <div className="rounded w-[600px]">
+      <div className="flex">
         <CardTitle title={title} />
         <CardMisc id={id} onDelete={onDelete} />
       </div>
 
-      {/* Card Body */}
-      <div className="mt-2">
+      <div>
         <CardContent src={url} />
+        <CardFooter />
       </div>
-
-      {/* Card Footer */}
-      <CardFooter />
     </div>
   );
 };
