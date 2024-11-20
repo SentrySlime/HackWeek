@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function ImageUploader({ onClose }) {
   const [file, setFile] = useState(null);
@@ -8,6 +9,44 @@ function ImageUploader({ onClose }) {
   const [title, setTitle] = useState("");
   const fileInputRef = useRef(null);
   const modalRef = useRef(null);
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async ({ file, title }) => {
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("title", title);
+      const response = await axios.post(
+        "http://localhost:8080/api/upload",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      return response.data;
+    },
+    onMutate: async ({ file, title }) => {
+      await queryClient.cancelQueries({ queryKey: ["posts"] });
+
+      const previousPosts = queryClient.getQueryData(["posts"]);
+
+      const newPost = {
+        id: Date.now(), 
+        title,
+        url: URL.createObjectURL(file), 
+      };
+      queryClient.setQueryData(["posts"], (old) => [...(old || []), newPost]);
+
+      return { previousPosts };
+    },
+    onError: (error, variables, context) => {
+      
+      queryClient.setQueryData(["posts"], context.previousPosts);
+    },
+    onSettled: () => {
+      
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -18,13 +57,12 @@ function ImageUploader({ onClose }) {
         : selectedFile.name
     );
 
-    const file = e.target.files[0];
-    if (file) {
+    if (selectedFile) {
       const reader = new FileReader();
       reader.onload = () => {
         setImageSrc(reader.result);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(selectedFile);
     }
   };
 
@@ -32,6 +70,7 @@ function ImageUploader({ onClose }) {
     setTitle("");
     setFile(null);
     setFileName("");
+    setImageSrc(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -45,23 +84,10 @@ function ImageUploader({ onClose }) {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("title", title);
+    mutation.mutate({ file, title });
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/upload",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-      console.log("Image uploaded successfully:", response.data);
-    } catch (error) {
-      console.error("Upload failed:", error);
-    } finally {
-      resetForm();
-      onClose();
-    }
+    resetForm();
+    onClose();
   };
 
   useEffect(() => {
@@ -90,7 +116,6 @@ function ImageUploader({ onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-
       <div>
         <div
           ref={modalRef}
@@ -145,13 +170,6 @@ function ImageUploader({ onClose }) {
             >
               Upload
             </button>
-
-            <div>
-              <p className="border p-2 mt-3 w-44 rounded border-lime-600">
-                Posted successfully!
-              </p>
-            </div>
-
           </form>
         </div>
       </div>

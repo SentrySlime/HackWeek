@@ -4,12 +4,12 @@ import CardFooter from "./CardFooter";
 import CardMisc from "./CardMisc";
 import CardTitle from "./CardTitle";
 
-const Card = ({ id, title, url }) => {
+const Card = ({ id, title, url, onDelete }) => {
   return (
     <div className="rounded w-[600px]">
       <div className="flex">
         <CardTitle title={title} />
-        <CardMisc id={id} />
+        <CardMisc id={id} onDelete={onDelete} />
       </div>
 
       <div>

@@ -1,12 +1,7 @@
-import axios from "axios";
+import React from "react";
 import dots from "../../assets/dots.png";
 
-const CardMisc = ({id}) => {
-  
-  const deleteItem = () => {
-    axios.delete(`http://localhost:8080/api/${id}`)
-  }
-
+const CardMisc = ({ id, onDelete }) => {
   return (
     <div className="flex float-right">
       <div className="flex ml-5 mt-3">
@@ -20,8 +15,8 @@ const CardMisc = ({id}) => {
           </button>
         </div>
         <div className="mr-2">
-          <button onClick={deleteItem} >
-            <img className="w-8" src={dots} alt="" />
+          <button onClick={onDelete}>
+            <img className="w-8" src={dots} alt="Delete Post" />
           </button>
         </div>
       </div>

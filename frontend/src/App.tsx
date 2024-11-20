@@ -1,40 +1,44 @@
 import React, { useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Footer from "./components/Footer";
 import Sticky from "./components/Sticky";
 import SideBar from "./components/SideBar/SideBar";
 import CardGroup from "./components/CardGroup";
 import ImageUploader from "./components/Post/ImageUploader";
 
+const queryClient = new QueryClient();
+
 function App() {
   const [isImageUploaderOpen, setIsImageUploaderOpen] = useState(false);
 
   return (
-    <div className="relative">
-      {/* Sticky Header */}
-      <Sticky toggleImageUploader={() => setIsImageUploaderOpen(true)} />
+    <QueryClientProvider client={queryClient}>
+      <div className="relative">
+        {/* Sticky Header */}
+        <Sticky toggleImageUploader={() => setIsImageUploaderOpen(true)} />
 
-      {/* Sidebar */}
-      <SideBar />
+        {/* Sidebar */}
+        <SideBar />
 
-      {/* Main Content with Blur */}
-      <div
-        className={`transition-all duration-300 ml-[425px] ${ // Margin to accommodate sidebar
-          isImageUploaderOpen ? "blur-sm" : ""
-        }`}
-      >
-        <div className="mt-10">
-          <CardGroup />
+        {/* Main Content with Blur */}
+        <div
+          className={`transition-all duration-300 ml-[425px] ${
+            isImageUploaderOpen ? "blur-sm" : ""
+          }`}
+        >
+          <div className="mt-10">
+            <CardGroup />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
 
-      {/* ImageUploader Modal */}
-      {isImageUploaderOpen && (
-        <ImageUploader onClose={() => setIsImageUploaderOpen(false)} />
-      )}
-    </div>
+        {/* ImageUploader Modal */}
+        {isImageUploaderOpen && (
+          <ImageUploader onClose={() => setIsImageUploaderOpen(false)} />
+        )}
+      </div>
+    </QueryClientProvider>
   );
 }
 
 export default App;
-
