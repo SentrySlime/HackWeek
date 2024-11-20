@@ -1,8 +1,8 @@
 const Resources = () => {
   return (
     <div className="mt-4">
-      <p className="font-semibold mb-2">Resources</p>
-      <div className="border p-2">
+      <p className="font-semibold mb-2 pl-2">Resources</p>
+      <div className="border p-2 pl-2">
         <button className="text-left w-full mb-2">Contact</button>
         <button className="text-left w-full mb-2">Help</button>
         <button className="text-left w-full mb-2">PressKit</button>

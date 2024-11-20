@@ -15,36 +15,32 @@ const deletePost = async (id) => {
 const CardGroup = () => {
   const queryClient = useQueryClient();
 
-  // Fetch posts
-  const { data: posts, isLoading, isError } = useQuery({
+  const {
+    data: posts,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
   });
 
-  // Mutation for deleting a post with optimistic updates
   const mutation = useMutation({
     mutationFn: deletePost,
     onMutate: async (id) => {
-      // Cancel any outgoing refetches to prevent overwriting the optimistic update
       await queryClient.cancelQueries({ queryKey: ["posts"] });
 
-      // Snapshot the previous value for rollback in case of failure
       const previousPosts = queryClient.getQueryData(["posts"]);
 
-      // Optimistically update the cache
       queryClient.setQueryData(["posts"], (old) =>
         old.filter((post) => post.id !== id)
       );
 
-      // Return a context object with the rollback snapshot
       return { previousPosts };
     },
     onError: (error, id, context) => {
-      // Roll back to the previous state on error
       queryClient.setQueryData(["posts"], context.previousPosts);
     },
     onSettled: () => {
-      // Ensure the query data is refetched to sync with the server
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
   });
