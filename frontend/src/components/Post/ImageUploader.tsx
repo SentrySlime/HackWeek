@@ -126,6 +126,10 @@ function ImageUploader({ onClose }) {
           ref={modalRef}
           className="relative bg-white p-6 rounded-lg shadow-lg z-10 w-96 h-64"
         >
+
+          <h3 className="text-3xl mb-3">
+            Create new post</h3>
+
           <button
             onClick={() => {
               resetForm();

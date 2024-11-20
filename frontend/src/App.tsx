@@ -15,7 +15,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Toaster for displaying toast notifications */}
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="bottom-right" reverseOrder={false} />
       <div className="relative">
         {/* Sticky Header */}
         <Sticky toggleImageUploader={() => setIsImageUploaderOpen(true)} />

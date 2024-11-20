@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Card from "./Card/Card";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const fetchPosts = async () => {
   const response = await axios.get("http://localhost:8080/api");
@@ -10,6 +11,7 @@ const fetchPosts = async () => {
 
 const deletePost = async (id) => {
   await axios.delete(`http://localhost:8080/api/${id}`);
+  toast.success("Post deleted successfully!");
 };
 
 const CardGroup = () => {
