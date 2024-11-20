@@ -22,9 +22,9 @@ const Sticky = ({ toggleImageUploader }) => {
           <button
             id="postButton"
             onClick={toggleImageUploader}
-            className="flex justify-center items-center w-28 h-8 border border-lime-600 rounded mt-4 mr-4"
+            className="flex justify-center items-center w-28 h-8 border border-lime-600 rounded mt-4 mr-4 bg-lime-600 font-bold"
           >
-            ﹢ Post
+            ＋ Post
           </button>
           <button className="flex justify-center items-center w-28 h-8 border border-black rounded mt-4 mr-4">
             login/Register

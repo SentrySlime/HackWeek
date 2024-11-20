@@ -2,7 +2,7 @@ const CheckBox = ({fieldName}) => {
     return (
         <div className="">
           <input type="checkbox" id={fieldName} placeholder="Search" className="cursor-pointer" />
-          <label htmlFor={fieldName} className="text-gray-900 ml-2 cursor-pointer">
+          <label htmlFor={fieldName} className="text-gray-900 ml-2 cursor-pointer select-none">
           {fieldName}
           </label>
         </div>

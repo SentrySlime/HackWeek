@@ -12,12 +12,12 @@ const CardFooter = () => {
               ▲
             </button>
           </div>
-          <div className="flex">
-            <p className="w-24 text-right mr-2">Something</p>
+          {/* <div className="flex">
+            <p className="w-24 text-right mr-2">765</p>
             <button className="border rounded border-gray-400 w-6 h-6 ">
               ▼
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="my-9 border-t border-gray-300"></div>
