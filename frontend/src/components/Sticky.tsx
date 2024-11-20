@@ -1,4 +1,8 @@
+import { GrAddCircle } from "react-icons/gr";
+
 const Sticky = ({ toggleImageUploader }) => {
+
+
   return (
     <div className="sticky top-0 w-screen bg-slate-50 z-50"> {/* High z-index */}
       <div className="flex justify-between">
@@ -24,7 +28,7 @@ const Sticky = ({ toggleImageUploader }) => {
             onClick={toggleImageUploader}
             className="flex justify-center items-center w-28 h-8 border border-lime-600 rounded mt-4 mr-4 bg-lime-600 font-bold"
           >
-            ＋ Post
+            <GrAddCircle />   Post
           </button>
           <button className="flex justify-center items-center w-28 h-8 border border-black rounded mt-4 mr-4">
             login/Register

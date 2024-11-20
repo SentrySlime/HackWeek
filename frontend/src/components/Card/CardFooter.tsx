@@ -20,7 +20,7 @@ const CardFooter = () => {
           </div> */}
         </div>
       </div>
-      <div className="my-9 border-t border-gray-300"></div>
+      <div className="mb-12 mt-3 border-t border-gray-400"></div>
     </div>
   );
 };
