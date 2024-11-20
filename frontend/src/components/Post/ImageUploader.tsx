@@ -126,16 +126,18 @@ function ImageUploader({ onClose }) {
           ref={modalRef}
           className="relative bg-white p-6 rounded-lg shadow-lg z-10 w-96 h-64"
         >
-
-          <h3 className="text-3xl mb-3">
-            Create new post</h3>
+          <h3 className="text-3xl mb-3">Create new post</h3>
 
           <button
             onClick={() => {
               resetForm();
               onClose();
             }}
-            className="absolute top-2 right-2 w-6 h-6 text-gray-600 font-bold border border-red-600 rounded"
+            className="absolute top-2 right-2 w-6 h-6 text-gray-600 font-bold border border-red-600 rounded
+             transition-colors duration-300
+             hover:bg-red-100 hover:border-red-700 hover:text-red-700
+             focus:ring focus:ring-red-300
+             active:bg-red-200"
           >
             ✖
           </button>
@@ -154,10 +156,15 @@ function ImageUploader({ onClose }) {
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="px-4 py-2 bg-gray-200 border rounded"
+                className="px-4 py-2 bg-gray-200 text-gray-700 border border-gray-300 rounded font-bold
+              transition-colors duration-300
+              hover:bg-gray-300 hover:border-gray-400
+              focus:ring focus:ring-gray-300
+              active:bg-gray-400"
               >
                 Select File
               </button>
+
               {imageSrc && (
                 <img
                   src={imageSrc}
@@ -175,7 +182,11 @@ function ImageUploader({ onClose }) {
             </div>
             <button
               type="submit"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded font-bold
+             transition-colors duration-300
+             hover:bg-blue-600 hover:border-blue-600
+             focus:ring focus:ring-blue-300
+             active:bg-blue-700 border border-blue-500"
             >
               Upload
             </button>
