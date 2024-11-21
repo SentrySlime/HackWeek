@@ -1,24 +1,43 @@
 import CheckBox from "../CheckBox";
-import { FcAutomotive, FcCamera, FcNews, FcAndroidOs, FcFilm, FcSportsMode , FcCloseUpMode, FcCommandLine, FcElectronics, FcGlobe, FcGraduationCap, FcSteam, FcGallery} from "react-icons/fc";
+import {
+  FcAutomotive,
+  FcCamera,
+  FcNews,
+  FcAndroidOs,
+  FcFilm,
+  FcSportsMode,
+  FcCloseUpMode,
+  FcCommandLine,
+  FcElectronics,
+  FcGlobe,
+  FcGraduationCap,
+  FcSteam,
+  FcGallery,
+} from "react-icons/fc";
 
 const Categories = () => {
   return (
     <div className="w-full mb-4 mt-4">
-      <div className="flex justify-between items-center">
-        <p className="font-semibold pl-2">Categories</p>
-        <div className="flex space-x-2">
-          <button className="border rounded px-2 py-1">All</button>
-          <button className="border rounded px-2 py-1">None</button>
+      <div className="flex justify-between items-center mb-6 px-4">
+        <p className="font-extrabold text-xl text-primary">Categories</p>
+        <div className="flex gap-3 ml-5">
+          <button className="w-8 text-center btn btn-sm btn-primary btn-outline hover:scale-105 transition-transform duration-300 font-bold border rounded">
+            All
+          </button>
+          <button className="w-12 text-center btn btn-sm btn-secondary btn-outline hover:scale-105 transition-transform duration-300 font-bold border rounded">
+            None
+          </button>
         </div>
       </div>
 
-      <div className="border p-2 mt-4 pl-2 overflow-auto h-[400px]">
-        <p className="font-semibold mb-2">Recent</p>
+      <div className="p-4 overflow-auto h-[400px] bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-300 rounded-2xl shadow-lg">
+        <p className="font-semibold text-lg text-secondary mb-4">Recent</p>
+
         <CheckBox fieldName="Vehicles" iconName={<FcAutomotive />} />
         <CheckBox fieldName="Beauty" iconName={<FcCamera />} />
         <CheckBox fieldName="Technology" iconName={<FcAndroidOs />} />
 
-        <div className="mt-10 ">
+        <div className="mt-10">
           <CheckBox fieldName="Cinema" iconName={<FcFilm />} />
           <CheckBox fieldName="News" iconName={<FcNews />} />
           <CheckBox fieldName="Games" iconName={<FcAndroidOs />} />
