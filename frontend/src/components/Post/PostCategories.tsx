@@ -46,9 +46,12 @@ const PostCategories = () => {
       <button
         type="button"
         onClick={toggleDropdown}
-        className="bg-blue-500 text-white px-4 py-2 rounded focus:outline-none flex"
+        className="bg-orange-500 text-white px-4 py-2 rounded focus:outline-none flex"
       >
-        Categories <GrCaretDown />
+        Categories 
+        <div className="mt-1 ml-2">
+            <GrCaretDown />
+        </div>
       </button>
 
       {isDropdownOpen && (

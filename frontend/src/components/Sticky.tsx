@@ -2,7 +2,7 @@ import { GrAddCircle } from "react-icons/gr";
 
 const Sticky = ({ toggleImageUploader }) => {
   return (
-    <div className="sticky top-0 w-screen bg-slate-50 z-50">
+    <div className="sticky top-0 w-screen bg-white z-50">
       {" "}
       <div className="flex justify-between">
         <div className="flex w-72">

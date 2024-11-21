@@ -123,7 +123,7 @@ function ImageUploader({ onClose }) {
       <div>
         <div
           ref={modalRef}
-          className="relative bg-white p-6 rounded-lg shadow-lg z-10 w-96"
+          className="relative bg-white p-6 rounded-lg shadow-lg z-10 w-[400px]"
         >
           <h3 className="text-3xl mb-3">Create new post</h3>
 
@@ -182,7 +182,7 @@ function ImageUploader({ onClose }) {
 
             <div className="flex items-center justify-between mt-4">
               <button
-                type="button"
+                type="submit"
                 className="px-4 py-2 bg-blue-500 text-white rounded font-bold
              transition-colors duration-300
              hover:bg-blue-600 hover:border-blue-600
