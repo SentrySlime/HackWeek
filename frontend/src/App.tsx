@@ -14,16 +14,12 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Toaster for displaying toast notifications */}
       <Toaster position="bottom-right" reverseOrder={false} />
       <div className="relative">
-        {/* Sticky Header */}
         <Sticky toggleImageUploader={() => setIsImageUploaderOpen(true)} />
 
-        {/* Sidebar */}
         <SideBar />
 
-        {/* Main Content with Blur */}
         <div
           className={`transition-all duration-300 ml-[425px] ${
             isImageUploaderOpen ? "blur-sm" : ""
@@ -35,7 +31,6 @@ function App() {
           <Footer />
         </div>
 
-        {/* ImageUploader Modal */}
         {isImageUploaderOpen && (
           <ImageUploader onClose={() => setIsImageUploaderOpen(false)} />
         )}

@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast"; // Import toast
+import toast from "react-hot-toast"; 
+import PostCategories from "./PostCategories";
 
 function ImageUploader({ onClose }) {
   const [file, setFile] = useState(null);
@@ -26,13 +27,11 @@ function ImageUploader({ onClose }) {
       return response.data;
     },
     onMutate: async ({ file, title }) => {
-      // Validate inputs
       if (!file || !title) {
         toast.error("All fields are required!");
         throw new Error("Validation failed");
       }
 
-      // Optimistic UI update
       await queryClient.cancelQueries({ queryKey: ["posts"] });
       const previousPosts = queryClient.getQueryData(["posts"]);
 
@@ -124,7 +123,7 @@ function ImageUploader({ onClose }) {
       <div>
         <div
           ref={modalRef}
-          className="relative bg-white p-6 rounded-lg shadow-lg z-10 w-96 h-64"
+          className="relative bg-white p-6 rounded-lg shadow-lg z-10 w-96"
         >
           <h3 className="text-3xl mb-3">Create new post</h3>
 
@@ -180,16 +179,20 @@ function ImageUploader({ onClose }) {
               />
               <span>{fileName || "No file selected"}</span>
             </div>
-            <button
-              type="submit"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded font-bold
+
+            <div className="flex items-center justify-between mt-4">
+              <button
+                type="button"
+                className="px-4 py-2 bg-blue-500 text-white rounded font-bold
              transition-colors duration-300
              hover:bg-blue-600 hover:border-blue-600
              focus:ring focus:ring-blue-300
              active:bg-blue-700 border border-blue-500"
-            >
-              Upload
-            </button>
+              >
+                Upload
+              </button>
+              <PostCategories />
+            </div>
           </form>
         </div>
       </div>
