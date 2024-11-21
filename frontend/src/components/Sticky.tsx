@@ -17,7 +17,7 @@ const Sticky = ({ toggleImageUploader }) => {
           <input
             className="flex border justify-items-center border-black w-full h-7 mt-6 rounded"
             type="text"
-            placeholder="Search"
+            placeholder=" Search"
           />
         </div>
 

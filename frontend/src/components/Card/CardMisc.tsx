@@ -11,9 +11,7 @@ const CardMisc = ({ id, onDelete }) => {
   <button
     className="text-gray-600 font-bold text-2xl mr-3 border rounded
                transition-colors duration-300
-               hover:border-yellow-500 hover:text-yellow-500
-               focus:ring focus:ring-yellow-300
-               active:bg-yellow-100"
+               hover:border-yellow-500 hover:text-yellow-500"
   >
     <FaStar />
   </button>

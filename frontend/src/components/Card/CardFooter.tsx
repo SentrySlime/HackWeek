@@ -9,8 +9,7 @@ const CardFooter = () => {
           className="flex text-2xl  mt-1 justify-center  border-gray-400 text-gray-600
              transition-colors duration-300
              hover:border-blue-500 hover:text-blue-500
-             focus:ring focus:ring-blue-300
-             active:bg-blue-100"
+             "
         >
           <FaCommentAlt />
         </button>
