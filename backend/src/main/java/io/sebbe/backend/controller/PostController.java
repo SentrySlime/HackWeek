@@ -3,6 +3,7 @@ package io.sebbe.backend.controller;
 import io.sebbe.backend.dto.PostResponseDTO;
 import io.sebbe.backend.dto.UploadRequestDTO;
 import io.sebbe.backend.model.CloudPost;
+import io.sebbe.backend.model.Post;
 import io.sebbe.backend.service.PostService;
 import io.sebbe.backend.util.PostMapper;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,11 @@ public class PostController {
     this.postService = postService;
   }
 
-  @PostMapping("/upload")
+  @PostMapping
   public ResponseEntity<Map> uploadImage(@ModelAttribute UploadRequestDTO uploadRequest) {
     try {
 
-      CloudPost cloudPost = new CloudPost(uploadRequest.title(), uploadRequest.image());
+      CloudPost cloudPost = new CloudPost(uploadRequest.title(), uploadRequest.image(), uploadRequest.categories());
 
       Map uploadResult = service.uploadImage(cloudPost);
 
@@ -45,8 +46,9 @@ public class PostController {
 
   @GetMapping
   public ResponseEntity<List <PostResponseDTO>> getAllPosts(){
-    List<PostResponseDTO> list = postMapper.mapToDtoList(service.getPosts());
-    return ResponseEntity.ok(list);
+    List<Post> posts = service.getPosts();
+    List<PostResponseDTO> responseDTOs = PostMapper.toResponseDTOList(posts);
+    return ResponseEntity.ok(responseDTOs);
   }
 
   @DeleteMapping("/{id}")
