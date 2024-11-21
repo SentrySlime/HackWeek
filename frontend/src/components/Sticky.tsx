@@ -7,8 +7,8 @@ const Sticky = ({ toggleImageUploader }) => {
       <div className="flex justify-between">
         <div className="flex w-72">
           <img
-            className="w-10 h-10 m-4"
-            src="https://static.vecteezy.com/system/resources/thumbnails/009/342/559/small/mobile-game-golden-star-clipart-design-illustration-free-png.png"
+            className="w-32 h-12 m-4"
+            src="/src/assets/Logo.png"
             alt=""
           />
         </div>
