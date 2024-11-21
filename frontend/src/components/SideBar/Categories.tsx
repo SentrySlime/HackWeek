@@ -3,7 +3,7 @@ import { FcAutomotive, FcCamera, FcNews, FcAndroidOs, FcFilm, FcSportsMode , FcC
 
 const Categories = () => {
   return (
-    <div className="w-full mb-4">
+    <div className="w-full mb-4 mt-4">
       <div className="flex justify-between items-center">
         <p className="font-semibold pl-2">Categories</p>
         <div className="flex space-x-2">

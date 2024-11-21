@@ -3,6 +3,8 @@ import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast"; 
 import PostCategories from "./PostCategories";
+import { FcCancel } from "react-icons/fc";
+import { GiCancel } from "react-icons/gi";
 
 function ImageUploader({ onClose }) {
   const [file, setFile] = useState(null);
@@ -123,7 +125,7 @@ function ImageUploader({ onClose }) {
       <div>
         <div
           ref={modalRef}
-          className="relative bg-white p-6 rounded-lg shadow-lg z-10 w-[400px]"
+          className="relative bg-white p-6 rounded-lg shadow-lg z-10 w-[400px]  border"
         >
           <h3 className="text-3xl mb-3">Create new post</h3>
 
@@ -132,13 +134,13 @@ function ImageUploader({ onClose }) {
               resetForm();
               onClose();
             }}
-            className="absolute top-2 right-2 w-6 h-6 text-gray-600 font-bold border border-red-600 rounded
+            className="absolute top-2 right-2 text-gray-600 font-bold text-2xl
              transition-colors duration-300
-             hover:bg-red-100 hover:border-red-700 hover:text-red-700
+             hover:border-red-700 hover:text-red-700
              focus:ring focus:ring-red-300
              active:bg-red-200"
           >
-            ✖
+            <GiCancel />
           </button>
 
           <form onSubmit={handleUpload}>
