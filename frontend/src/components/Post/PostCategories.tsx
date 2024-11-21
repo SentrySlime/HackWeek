@@ -17,7 +17,7 @@ import {
 } from "react-icons/fc";
 import { GrCaretDown } from "react-icons/gr";
 
-const PostCategories = () => {
+const PostCategories = ({ activeCategories, setCategories }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -41,6 +41,16 @@ const PostCategories = () => {
     { fieldName: "Climate", iconName: <FcGlobe /> },
   ];
 
+  const handleCategoryChange = (fieldName, isChecked) => {
+    setCategories((prevCategories) => {
+      if (isChecked) {
+        return [...prevCategories, fieldName];
+      } else {
+        return prevCategories.filter((category) => category !== fieldName);
+      }
+    });
+  };
+
   return (
     <div className="relative inline-block text-left">
       <button
@@ -48,9 +58,9 @@ const PostCategories = () => {
         onClick={toggleDropdown}
         className="bg-orange-500 text-white px-4 py-2 rounded focus:outline-none flex"
       >
-        Categories 
+        Categories
         <div className="mt-1 ml-2">
-            <GrCaretDown />
+          <GrCaretDown />
         </div>
       </button>
 
@@ -61,12 +71,14 @@ const PostCategories = () => {
             <div className="flex space-x-2">
               <button
                 type="button"
+                onClick={() => setCategories(categories.map((c) => c.fieldName))}
                 className="border rounded px-2 py-1 text-sm hover:bg-gray-100"
               >
                 All
               </button>
               <button
                 type="button"
+                onClick={() => setCategories([])}
                 className="border rounded px-2 py-1 text-sm hover:bg-gray-100"
               >
                 None
@@ -75,24 +87,17 @@ const PostCategories = () => {
           </div>
 
           <div className="p-4">
-            <p className="font-semibold mb-2">Recent</p>
-            {categories.slice(0, 3).map((category) => (
+            {categories.map((category) => (
               <CheckBox
                 key={category.fieldName}
                 fieldName={category.fieldName}
                 iconName={category.iconName}
+                isChecked={activeCategories.includes(category.fieldName)}
+                onChange={(isChecked) =>
+                  handleCategoryChange(category.fieldName, isChecked)
+                }
               />
             ))}
-
-            <div className="mt-6">
-              {categories.slice(3).map((category) => (
-                <CheckBox
-                  key={category.fieldName}
-                  fieldName={category.fieldName}
-                  iconName={category.iconName}
-                />
-              ))}
-            </div>
           </div>
         </div>
       )}

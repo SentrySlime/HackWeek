@@ -11,6 +11,11 @@ const queryClient = new QueryClient();
 
 function App() {
   const [isImageUploaderOpen, setIsImageUploaderOpen] = useState(false);
+  const [pickedCategories, setPickedCategories] = useState([])
+
+  const handlePickedCategories = (categories: string[]) => {
+    setPickedCategories(() => categories)
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -18,7 +23,7 @@ function App() {
       <div className="relative">
         <Sticky toggleImageUploader={() => setIsImageUploaderOpen(true)} />
 
-        <SideBar />
+        <SideBar handlePickedCategories={handlePickedCategories} />
 
         <div
           className={`transition-all duration-300 ml-[425px] ${
@@ -26,7 +31,7 @@ function App() {
           }`}
         >
           <div className="mt-10">
-            <CardGroup />
+            <CardGroup pickedCategories={pickedCategories} />
           </div>
           <Footer />
         </div>

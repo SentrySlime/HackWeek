@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast"; 
+import toast from "react-hot-toast";
 import PostCategories from "./PostCategories";
 import { FcCancel } from "react-icons/fc";
 import { GiCancel } from "react-icons/gi";
@@ -11,21 +11,23 @@ function ImageUploader({ onClose }) {
   const [fileName, setFileName] = useState("");
   const [imageSrc, setImageSrc] = useState(null);
   const [title, setTitle] = useState("");
+  const [categories, setCategories] = useState([]);
   const fileInputRef = useRef(null);
   const modalRef = useRef(null);
 
   const queryClient = useQueryClient();
-
+  const handleCategoriesOnChange = (categories: string[]) => {
+    setCategories((prevState) => categories);
+  };
   const mutation = useMutation({
     mutationFn: async ({ file, title }) => {
       const formData = new FormData();
       formData.append("image", file);
       formData.append("title", title);
-      const response = await axios.post(
-        "http://localhost:8080/api",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      formData.append("categories", categories.toString());
+      const response = await axios.post("http://localhost:8080/api", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       return response.data;
     },
     onMutate: async ({ file, title }) => {
@@ -193,7 +195,10 @@ function ImageUploader({ onClose }) {
               >
                 Upload
               </button>
-              <PostCategories />
+              <PostCategories
+                activeCategories={categories}
+                setCategories={setCategories}
+              />
             </div>
           </form>
         </div>

@@ -4,7 +4,7 @@ import CardFooter from "./CardFooter";
 import CardMisc from "./CardMisc";
 import CardTitle from "./CardTitle";
 
-const Card = ({ id, title, url, onDelete }) => {
+const Card = ({ id, title, url, categories, onDelete }) => {
   return (
     <div className="rounded w-[600px]">
       <div className="flex">
@@ -14,7 +14,7 @@ const Card = ({ id, title, url, onDelete }) => {
 
       <div>
         <CardContent src={url} />
-        <CardFooter />
+        <CardFooter categories={categories} />
       </div>
     </div>
   );

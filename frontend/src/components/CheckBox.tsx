@@ -1,4 +1,8 @@
-const CheckBox = ({ fieldName, iconName }) => {
+const CheckBox = ({ fieldName, iconName, isChecked, onChange }) => {
+  const handleChange = (e) => {
+    onChange(e.target.checked);
+  };
+
   return (
     <div
       className="flex items-center mb-4 pb-2 border-b border-gray-200 hover:bg-gray-100 rounded-lg transition-all duration-300"
@@ -8,6 +12,8 @@ const CheckBox = ({ fieldName, iconName }) => {
         type="checkbox"
         id={fieldName}
         className="checkbox checkbox-primary scale-110"
+        checked={isChecked}
+        onChange={handleChange}
       />
       <label
         htmlFor={fieldName}

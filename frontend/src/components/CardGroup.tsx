@@ -14,7 +14,7 @@ const deletePost = async (id) => {
   toast.success("Post deleted successfully!");
 };
 
-const CardGroup = () => {
+const CardGroup = ({ pickedCategories }) => {
   const queryClient = useQueryClient();
 
   const {
@@ -30,34 +30,48 @@ const CardGroup = () => {
     mutationFn: deletePost,
     onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey: ["posts"] });
-
       const previousPosts = queryClient.getQueryData(["posts"]);
 
       queryClient.setQueryData(["posts"], (old) =>
-        old.filter((post) => post.id !== id)
+        old ? old.filter((post) => post.id !== id) : []
       );
 
       return { previousPosts };
     },
     onError: (error, id, context) => {
-      queryClient.setQueryData(["posts"], context.previousPosts);
+      if (context?.previousPosts) {
+        queryClient.setQueryData(["posts"], context.previousPosts);
+      }
+      toast.error("Failed to delete the post. Please try again.");
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error loading posts.</p>;
+  if (isLoading) return <p>Loading posts...</p>;
+  if (isError) return <p>Error loading posts: {error.message}</p>;
+
+  const filteredPosts = posts.filter((post) => {
+    if (pickedCategories.length > 0) {
+      // Ensure all pickedCategories are in post.categories
+      return pickedCategories.every((category) =>
+        post.categories.includes(category)
+      );
+    }
+    return true; // Show all posts if no categories are picked
+  });
+  
 
   return (
     <div>
-      {posts.map((post) => (
+      {filteredPosts.map((post) => (
         <Card
           key={post.id}
           id={post.id}
           title={post.title}
           url={post.url}
+          categories={post.categories}
           onDelete={() => mutation.mutate(post.id)}
         />
       ))}
